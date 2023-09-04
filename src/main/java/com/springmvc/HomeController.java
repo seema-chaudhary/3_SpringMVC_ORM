@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
+
 import com.springmvc.entity.User;
 import com.springmvc.service.UserService;
 
@@ -40,5 +42,31 @@ public class HomeController {
 		System.out.println(user);
 		System.out.println("Thanku...");
 		return "success";
+	}
+	
+//	Redirection Way-1
+	@RequestMapping("/google1")
+	public String redirectPage()
+	{		
+		return "redirect:https://www.google.com";
+	}
+	
+	
+//	Redirection Way-2
+	@RequestMapping(path="/google2", method=RequestMethod.POST)
+	public RedirectView redirectPage1()
+	{		
+		RedirectView redview = new RedirectView();
+		redview.setUrl("https://www.google.com");
+		return redview;
+	}
+
+	
+//	Search Engine
+	@RequestMapping("/search")
+	public String search(@RequestParam("keyword") String keyword)
+	{		
+		String url="https://www.google.com/search?q="+keyword;
+		return "redirect:"+url;
 	}
 }
